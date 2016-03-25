@@ -1,28 +1,29 @@
-import React, { Component } from 'react'
-import data from '../public/data'
-import ShowCard from './ShowCard'
+const React = require('react')
+const ShowCard = require('./ShowCard')
+const { object } = React.PropTypes
 
-class Search extends Component {
-  constructor (props) {
-    super(props)
-    this.state = {searchTerm: ''}
-    this.onInputChange = this.onInputChange.bind(this)
-  }
-  onInputChange (event) {
+const Search = React.createClass({
+  getInitialState () {
+    return {
+      searchTerm: ''
+    }
+  },
+  propTypes: {
+    route: object
+  },
+  handleSearchTermEvent (event) {
     this.setState({ searchTerm: event.target.value })
-  }
+  },
   render () {
     return (
       <div className='container'>
         <header className='header'>
           <h1 className='brand'>svideo</h1>
-          <input value={this.state.searchTerm} onChange={this.onInputChange} className='search-input' type='text' placeholder='Search' />
+          <input value={this.state.searchTerm} className='search-input' type='text' placeholder='Search' onChange={this.handleSearchTermEvent} />
         </header>
         <div className='shows'>
-          {data.shows
-            .filter((show) => `${show.title} ${show.description}`
-            .toUpperCase()
-            .indexOf(this.state.searchTerm.toUpperCase()) >= 0)
+          {this.props.route.shows
+            .filter((show) => `${show.title} ${show.description}`.toUpperCase().indexOf(this.state.searchTerm.toUpperCase()) >= 0)
             .map((show) => (
               <ShowCard {...show} key={show.imdbID} />
           ))}
@@ -30,6 +31,6 @@ class Search extends Component {
       </div>
     )
   }
-}
+})
 
 module.exports = Search

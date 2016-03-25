@@ -1,4 +1,4 @@
-import React from 'react'
+const React = require('react')
 
 const ShowCard = (props) => (
   <div className='show-card'>
@@ -6,7 +6,7 @@ const ShowCard = (props) => (
     <div className='show-card-text'>
       <h3 className='show-card-title'>{props.title}</h3>
       <h4 className='show-card-year'>({props.year})</h4>
-      <h4 className='show-card-description'>({props.description})</h4>
+      <p className='show-card-description'>{props.description}</p>
     </div>
   </div>
 )
