@@ -4,14 +4,17 @@ const { func, bool, string } = React.PropTypes
 
 const Header = React.createClass({
   propTypes: {
-    handleSearchTerm: func,
+    handleSearchTermChange: func,
     showSearch: bool,
     searchTerm: string
+  },
+  handleSearchTermEvent (e) {
+    this.props.handleSearchTermChange(e.target.value)
   },
   render () {
     let utilSpace
     if (this.props.showSearch) {
-      utilSpace = <input type='text' className='search-input' placeholder='search' value={this.props.searchTerm} onChange={this.props.handleSearchTerm} />
+      utilSpace = <input type='text' className='search-input' placeholder='search' value={this.props.searchTerm} onChange={this.handleSearchTermEvent} />
     } else {
       utilSpace = (
         <h2 className='header-back'>
